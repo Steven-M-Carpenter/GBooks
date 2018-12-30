@@ -1,0 +1,18 @@
+[
+  {    
+    "key": 1,
+    "title": "Book One",
+    "authors": "Author ABC",
+    "description": "This is a sample description of a book.  Enjoy reading it.",
+    "image": "https://placehold.it/200x200",
+    "link": "https://link/to/book/on/google.com"
+  },
+  {    
+    "key": 2,
+    "title": "Book Two",
+    "authors": "Author XYZ",
+    "description": "This is a sample description of a book.  Enjoy reading it.",
+    "image": "https://placehold.it/200x200",
+    "link": "https://link/to/book/on/google.com"
+  }
+]
