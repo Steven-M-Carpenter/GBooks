@@ -1,5 +1,3 @@
-//This is the search area for the page
-//
 import React from "react";
 import "./style.css";
 
@@ -28,7 +26,6 @@ export function ResultsItem({
               <h5 className="pl-1"><i>{authors}</i></h5>
               <img className="float-left mr-3 border border-dark" src={image} height="150px" width="100px" alt="Meainingful text" />
               <p className="pl-0">{description}</p>
-              {/* <p><a href={link}>{link}</a></p> */}
             </div>
           </div>
         </div >

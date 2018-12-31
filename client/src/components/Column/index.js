@@ -1,4 +1,4 @@
-//This is the search area for the page
+//Unused
 //
 import React from "react";
 import "./style.css";

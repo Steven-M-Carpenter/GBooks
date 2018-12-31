@@ -115,7 +115,6 @@ class AppMain extends React.Component {
                 />
                 {/* <BtnSave name={"steve"} onClick={() => this.saveClicked(id)} location={"here"} /> */}
                 {/* <BtnSave name={"steve"} onClick={() => this.saveClicked(id)} location={"here"} /> */}
-                {/* <BtnSave onClick={() => this.saveClicked(book.id)} /> */}
                 <BtnSave onClick={() => this.saveClicked(id)} />
                 <BtnView link={link} />
               </div>
