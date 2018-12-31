@@ -20,7 +20,7 @@ function NavBar() {
             <a className="nav-link pt-3 ml-5 text-white" href="/">Search</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link pt-3 ml-5 text-white" href="/">Saved</a>
+            <a className="nav-link pt-3 ml-5 text-white" href="/saved">Saved</a>
           </li>
         </ul>
       </div>
