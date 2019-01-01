@@ -7,7 +7,7 @@ import "./style.css";
 
 function Search(props) {
   return (
-    <section className="ml-4 mr-4 mb-4" >
+    <section className="ml-4 mr-4 mb-4 mt-5" >
       <div className="container-fluid pl-3 pr-3 border border-dark rounded">
         <div className="row">
           <div className="col-lg-12">
@@ -26,7 +26,7 @@ function Search(props) {
                 type="text" 
                 placeholder="Search term">
                 </input>
-              <button type="submit" onClick={props.handleFormSubmit} className="btn btn-success mb-3 mt-3 float-right">Search</button>
+              <button id="searchButton" type="submit" onClick={props.handleFormSubmit} className="btn btn-success mb-3 mt-3 float-right">Search</button>
             </form>
           </div>
         </div>

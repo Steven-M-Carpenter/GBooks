@@ -1,21 +1,15 @@
-//This is the main game area which will likely have most of the logic and pulls everything together
+//This is the main element for the app's search feature 
 //**It will manage state so it will need to be a class.
 //
 import React from "react";
 import "./style.css";
 
-import Search from "../Search";
-import Results from "../Results";
-import ResultsItem from "../ResultsItem";
+import Search from "../../components/Search";
+import Results from "../../components/Results";
+import ResultsItem from "../../components/ResultsItem";
 import API from "../../utils/API";
-import BtnSave from "../BtnSave";
-import BtnView from "../BtnView";
-// import Search from "../../components/Search";
-// import Results from "../../components/Results";
-// import ResultsItem from "../../components/ResultsItem";
-// import API from "../../utils/API";
-// import BtnSave from "../../components/BtnSave";
-// import BtnView from "../../components/BtnView";
+import BtnSave from "../../components/BtnSave";
+import BtnView from "../../components/BtnView";
 
 
 class AppMain extends React.Component {
@@ -23,7 +17,6 @@ class AppMain extends React.Component {
     books: [],
     bookSearch: ""
   };
-
 
 
   searchBooks = query => {
@@ -44,19 +37,18 @@ class AppMain extends React.Component {
   };
 
 
-  saveClicked = key => {
-    console.log("save clicked = " + key);
+  saveClicked = event => {
+    event.preventDefault();
+    const bookDataId = event.target.id;
     const bookData = this.state.books.map(book => {
-      const currentBook = { ...book };
+      const currentBook = {...book};
       let saveKey = (book.id);
       let saveTitle = (book.volumeInfo.title || "No Title");
       let saveAuthors = ((book.volumeInfo.authors) ? book.volumeInfo.authors.join(", ") : "None listed");
       let saveDescription = (book.volumeInfo.description || "No description");
       let saveImage = ((book.volumeInfo.imageLinks) ? book.volumeInfo.imageLinks.thumbnail : "../../assets/images/NoImage.jpg");
       let saveLink = (book.volumeInfo.canonicalVolumeLink || "Unknown");
-      if (currentBook.id === key) {
-        console.log("currentBook ID = the key supplied");
-        console.log("book = " + JSON.stringify(book));
+      if (currentBook.id === bookDataId) {
         API.saveBook({
           key: saveKey,
           title: saveTitle,
@@ -65,9 +57,9 @@ class AppMain extends React.Component {
           image: saveImage,
           link: saveLink
         })
-          .then(res => console.log("Ran add step!"))
+          // .then(res => console.log("Ran add step!"))
+          .then()
           .catch(err => console.log(err));
-        // .then(res => this.loadBooks())
       };
       return bookData
     });
@@ -81,7 +73,7 @@ class AppMain extends React.Component {
   };
 
 
-  deleteClicked = (key) => {
+  deleteClicked = key => {
     console.log("delete clicked = " + key);
   };
 
@@ -94,6 +86,7 @@ class AppMain extends React.Component {
           handleInputChange={this.handleInputChange}
           handleFormSubmit={this.handleFormSubmit}
         />
+        {/* <div className="border border-dark rounded px-2 py-2"> */}
         <Results>
           {this.state.books.map(book => {
             let id = (book.id);
@@ -102,8 +95,8 @@ class AppMain extends React.Component {
             let description = (book.volumeInfo.description || "No description");
             let image = ((book.volumeInfo.imageLinks) ? book.volumeInfo.imageLinks.thumbnail : "../../assets/images/NoImage.jpg");
             let link = (book.volumeInfo.canonicalVolumeLink || "Unknown");
-            console.log("book.authors === " + JSON.stringify(authors));
             return (
+              // <div className="border border-dark rounded px-2 py-2">
               <div>
                 <ResultsItem
                   key={id}
@@ -113,14 +106,13 @@ class AppMain extends React.Component {
                   image={image}
                   link={link}
                 />
-                {/* <BtnSave name={"steve"} onClick={() => this.saveClicked(id)} location={"here"} /> */}
-                {/* <BtnSave name={"steve"} onClick={() => this.saveClicked(id)} location={"here"} /> */}
-                <BtnSave onClick={() => this.saveClicked(id)} />
+                <BtnSave id={id} saveClicked={this.saveClicked} />
                 <BtnView link={link} />
               </div>
             );
           })}
         </Results>
+        {/* </div> */}
       </div>
     );
   };

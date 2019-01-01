@@ -1,14 +1,14 @@
-//This is the main game area which will likely have most of the logic and pulls everything together
-//**It will manage state so it will need to be a class.
+//This is the main element for interacting with saved records
+//It will manage state so it needs to be a class.
 //
 import React from "react";
 import "./style.css";
 
-import Results from "../Results";
-import ResultsItem from "../ResultsItem";
+import Results from "../../components/Results";
+import ResultsItem from "../../components/ResultsItem";
 import API from "../../utils/API";
-import BtnDelete from "../BtnDelete";
-import BtnView from "../BtnView";
+import BtnDelete from "../../components/BtnDelete";
+import BtnView from "../../components/BtnView";
 
 
 class AppSaved extends React.Component {
@@ -19,15 +19,25 @@ class AppSaved extends React.Component {
   
   componentDidMount() {
     API.getBooks()
-      // .then(res => this.setState({ book: res.data }))
       .then(res => this.setState({ books: res.data, key: "", title: "", authors: "", description: "", image: "", link: "" }))
       .catch(err => console.log(err));
   }
 
 
-  deleteClicked = (key) => {
-    console.log("delete clicked = " + key);
+  loadBooks = () => {
+    API.getBooks()
+    .then(res => this.setState({ books: res.data, key: "", title: "", authors: "", description: "", image: "", link: "" }))
+    .catch(err => console.log(err));
   };
+
+
+  deleteClicked = event => {
+    const bookDataId = event.target.id;
+    API.deleteBook(bookDataId)
+    .then(res => this.loadBooks())
+    .catch(err => console.log(err));
+};
+  // };
 
   
   render() {
@@ -36,17 +46,11 @@ class AppSaved extends React.Component {
         <Results>
           {this.state.books.map(book => {
             let key = (book.key);
-            // let title = (book.volumeInfo.title || "No Title");
             let title = (book.title);
-            // let authors = ((book.volumeInfo.authors) ? book.volumeInfo.authors.join(", ") : "None listed");
             let authors = (book.authors);
-            // let description = (book.volumeInfo.description || "No description");
             let description = (book.escription);
-            // let image = ((book.volumeInfo.imageLinks) ? book.volumeInfo.imageLinks.thumbnail : "../../assets/images/NoImage.jpg");
             let image = (book.image);
-            // let link = (book.volumeInfo.canonicalVolumeLink || "Unknown");
             let link = (book.link);
-            // console.log("book.authors === " + JSON.stringify(authors));
             return (
               <div>
                 <ResultsItem
@@ -57,7 +61,7 @@ class AppSaved extends React.Component {
                   image={image}
                   link={link}
                 />
-                <BtnDelete onClick={() => this.deleteClicked(key)} />
+                <BtnDelete id={book._id} deleteClicked={this.deleteClicked} />
                 <BtnView link={link}/>
               </div>
             );

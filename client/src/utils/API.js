@@ -2,18 +2,14 @@ import axios from "axios";
 
 export default {
 
+   // Search Google Books for the term provided 
   search: (query) => {
     return axios.get("https://www.googleapis.com/books/v1/volumes?q=" + query);
   },
-
-
-  // Deletes the book with the given id
+  // Deletes a book from the database
   deleteBook: function(id) {
+    console.log("Delete of ID requested: " + id);
     return axios.delete("/api/books/" + id);
-  },
-  // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
   },
   // Gets all saved books
   getBooks: function() {
